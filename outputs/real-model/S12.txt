@@ -1,0 +1,29 @@
+Scenario: S12 - Preference across threads without replay
+Model: openai:gpt-4o-mini
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S12
+Run at: 2026-11-07T13:22:43+00:00
+
+--- event 1: user=demo-user-a thread=preference-a1
+User: Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "remember_preference", "args": {"name": "reply_language", "value": "Kazakh"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "remember_preference", "result": {"ok": true, "saved": {"reply_language": "Kazakh"}, "target": "user_memory"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. Wi-Fi мәселеңіз туралы айтып берсеңіз, мен көмектесуге дайынмын. Сізде қандай проблема бар?"}
+Information sources: none
+Ticket files: none
+Loop limit reached: False
+Reply: Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. Wi-Fi мәселеңіз туралы айтып берсеңіз, мен көмектесуге дайынмын. Сізде қандай проблема бар?
+
+--- event 2: PROCESS RESTARTED (storage kept) ---
+
+--- event 3: user=demo-user-a thread=preference-a2
+User: Which language did I ask you to use? What can you help with?
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {"reply_language": "Kazakh"}}
+  node call_model: {"tool_requests": [], "content": "Сіз мені қазақ тілінде жауап беруімді сұрадыңыз. Мен Wi-Fi мәселелерін шешу, парольді қалпына келтіру бойынша нұсқаулар беру, қызметтің күйін тексеру және ЖЕРГІЛІКТІ билет жобаларын дайындау бойынша көмектесе аламын."}
+Information sources: ['user_memory']
+Ticket files: none
+Loop limit reached: False
+Reply: Сіз мені қазақ тілінде жауап беруімді сұрадыңыз. Мен Wi-Fi мәселелерін шешу, парольді қалпына келтіру бойынша нұсқаулар беру, қызметтің күйін тексеру және ЖЕРГІЛІКТІ билет жобаларын дайындау бойынша көмектесе аламын.

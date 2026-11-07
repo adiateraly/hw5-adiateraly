@@ -1,0 +1,27 @@
+Scenario: S09 - Missing ticket details
+Model: fake model (offline test double, not a real LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S09 --fake-model
+Run at: 2026-11-07T13:17:06+00:00
+
+--- event 1: user=demo-user-a thread=s09
+User: Prepare a support ticket.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [], "content": "What problem are you having, and what have you already tried?"}
+Information sources: none
+Ticket files: none
+Loop limit reached: False
+Reply: What problem are you having, and what have you already tried?
+
+--- event 2: user=demo-user-a thread=s09
+User: The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.
+State messages before this turn: 2
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "category": "wifi", "service_status": "not_checked", "reference_ids": ["GUIDE-WIFI"]}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-a29d51c7", "file": "outputs/tickets/TCK-a29d51c7.json", "ticket": {"ticket_id": "TCK-a29d51c7", "status": "draft", "user_id": "demo-user-a", "thread_id": "s09", "category": "wifi", "summary": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "service_status": "not_checked", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:17:06+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "Service status was not checked. I prepared a local draft (TCK-a29d51c7, file outputs/tickets/TCK-a29d51c7.json) with the problem and the steps you tried. Nothing has been sent."}
+Information sources: ['conversation_state (checkpointer)']
+Ticket files: ['outputs/tickets/TCK-a29d51c7.json']
+Loop limit reached: False
+Reply: Service status was not checked. I prepared a local draft (TCK-a29d51c7, file outputs/tickets/TCK-a29d51c7.json) with the problem and the steps you tried. Nothing has been sent.

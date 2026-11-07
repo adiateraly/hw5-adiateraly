@@ -1,0 +1,164 @@
+{
+  "id": "S11",
+  "title": "Persist and recall after restart",
+  "model": "openai:gpt-4o-mini",
+  "command": "python -m helpdesk scenarios --id S11",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:22:32+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "restart-a",
+      "thread_key": "demo-user-a/restart-a",
+      "status_profile": "normal",
+      "message": "Please remember that I prefer replies in Kazakh. My issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "remember_preference",
+              "args": {
+                "name": "reply_language",
+                "value": "Kazakh"
+              }
+            },
+            {
+              "name": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "remember_preference",
+              "result": {
+                "ok": true,
+                "saved": {
+                  "reply_language": "Kazakh"
+                },
+                "target": "user_memory"
+              }
+            },
+            {
+              "name": "check_service_status",
+              "result": {
+                "ok": true,
+                "service": "wifi",
+                "status": "operational",
+                "message": "The demo Wi-Fi service has no reported outage.",
+                "profile": "normal",
+                "source": "service_status.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Сіздің жауаптарыңызды қазақ тілінде беруді еске алдым. Wi-Fi қызметі жұмыс істеп тұр, сондықтан мен сізге көмек көрсету үшін билет жобасын дайындай аламын.\n\nСізде қандай мәселе бар және не істеп көрдіңіз?"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "remember_preference",
+          "args": {
+            "name": "reply_language",
+            "value": "Kazakh"
+          }
+        },
+        {
+          "name": "check_service_status",
+          "args": {
+            "service": "wifi"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "remember_preference",
+          "result": {
+            "ok": true,
+            "saved": {
+              "reply_language": "Kazakh"
+            },
+            "target": "user_memory"
+          }
+        },
+        {
+          "name": "check_service_status",
+          "result": {
+            "ok": true,
+            "service": "wifi",
+            "status": "operational",
+            "message": "The demo Wi-Fi service has no reported outage.",
+            "profile": "normal",
+            "source": "service_status.json"
+          }
+        }
+      ],
+      "information_sources": [
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Сіздің жауаптарыңызды қазақ тілінде беруді еске алдым. Wi-Fi қызметі жұмыс істеп тұр, сондықтан мен сізге көмек көрсету үшін билет жобасын дайындай аламын.\n\nСізде қандай мәселе бар және не істеп көрдіңіз?"
+    },
+    {
+      "action": "restart_process"
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "restart-a",
+      "thread_key": "demo-user-a/restart-a",
+      "status_profile": "normal",
+      "message": "Which problem and steps did we discuss?",
+      "messages_in_state_before": 5,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {
+            "reply_language": "Kazakh"
+          }
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. Енді мен билет жобасын дайындау үшін сіздің айтқандарыңызды растаймын: мәселе қандай және не істеп көрдіңіз?"
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [
+        "conversation_state (checkpointer)",
+        "user_memory"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. Енді мен билет жобасын дайындау үшін сіздің айтқандарыңызды растаймын: мәселе қандай және не істеп көрдіңіз?"
+    }
+  ]
+}

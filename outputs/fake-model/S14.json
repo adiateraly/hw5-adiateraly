@@ -1,0 +1,92 @@
+{
+  "id": "S14",
+  "title": "Password recovery outage",
+  "model": "fake model (offline test double, not a real LLM)",
+  "command": "python -m helpdesk scenarios --id S14 --fake-model",
+  "status_profile": "recovery_outage",
+  "run_at": "2026-11-07T13:17:18+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s14",
+      "thread_key": "demo-user-a/s14",
+      "status_profile": "recovery_outage",
+      "message": "My password recovery page is unavailable. Check the service status. Is there a known problem?",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "check_service_status",
+              "args": {
+                "service": "account_recovery"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "check_service_status",
+              "result": {
+                "ok": true,
+                "service": "account_recovery",
+                "status": "outage",
+                "message": "The demo account-recovery service is unavailable. The fixture gives no repair time.",
+                "profile": "recovery_outage",
+                "source": "service_status.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "The demo account-recovery service is unavailable. The fixture gives no repair time."
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "check_service_status",
+          "args": {
+            "service": "account_recovery"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "check_service_status",
+          "result": {
+            "ok": true,
+            "service": "account_recovery",
+            "status": "outage",
+            "message": "The demo account-recovery service is unavailable. The fixture gives no repair time.",
+            "profile": "recovery_outage",
+            "source": "service_status.json"
+          }
+        }
+      ],
+      "information_sources": [
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "The demo account-recovery service is unavailable. The fixture gives no repair time."
+    }
+  ]
+}

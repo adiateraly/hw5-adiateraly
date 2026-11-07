@@ -1,0 +1,16 @@
+Scenario: S04 - Two topics before the graph change
+Model: none (Part 1 graph, no LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S04 --fake-model
+Run at: 2026-11-07T13:16:59+00:00
+
+--- event 1: user=demo-user-a thread=s04
+User: My Wi-Fi password does not work.
+Graph: original
+  node read_request: update={"category": "wifi"}
+  node wifi_help: update={"reply": "Connect to the practice campus network [GUIDE-WIFI]\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket."}
+Reply: Connect to the practice campus network [GUIDE-WIFI]
+1. Check that Wi-Fi is enabled and airplane mode is off.
+2. Select the fictional Campus-Demo network.
+3. If connection fails, forget the saved network and try connecting again.
+4. If the problem remains, check the service status before preparing a ticket.

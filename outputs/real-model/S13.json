@@ -1,0 +1,120 @@
+{
+  "id": "S13",
+  "title": "Do not share memory between users",
+  "model": "openai:gpt-4o-mini",
+  "command": "python -m helpdesk scenarios --id S13",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:22:49+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "isolation-a",
+      "thread_key": "demo-user-a/isolation-a",
+      "status_profile": "normal",
+      "message": "Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "remember_preference",
+              "args": {
+                "name": "reply_language",
+                "value": "Kazakh"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "remember_preference",
+              "result": {
+                "ok": true,
+                "saved": {
+                  "reply_language": "Kazakh"
+                },
+                "target": "user_memory"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. Wi-Fi мәселеңіз туралы айтып берсеңіз, мен көмектесуге дайынмын. Сізде қандай проблема бар?"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "remember_preference",
+          "args": {
+            "name": "reply_language",
+            "value": "Kazakh"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "remember_preference",
+          "result": {
+            "ok": true,
+            "saved": {
+              "reply_language": "Kazakh"
+            },
+            "target": "user_memory"
+          }
+        }
+      ],
+      "information_sources": [],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. Wi-Fi мәселеңіз туралы айтып берсеңіз, мен көмектесуге дайынмын. Сізде қандай проблема бар?"
+    },
+    {
+      "user_id": "demo-user-b",
+      "thread_id": "isolation-b",
+      "thread_key": "demo-user-b/isolation-b",
+      "status_profile": "normal",
+      "message": "Have I told you a preferred language or a previous problem?",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "No, you haven't shared a preferred language or a previous problem with me yet. If you have a specific issue or language preference, please let me know!"
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "No, you haven't shared a preferred language or a previous problem with me yet. If you have a specific issue or language preference, please let me know!"
+    }
+  ]
+}

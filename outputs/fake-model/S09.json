@@ -1,0 +1,174 @@
+{
+  "id": "S09",
+  "title": "Missing ticket details",
+  "model": "fake model (offline test double, not a real LLM)",
+  "command": "python -m helpdesk scenarios --id S09 --fake-model",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:17:06+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "thread_key": "demo-user-a/s09",
+      "status_profile": "normal",
+      "message": "Prepare a support ticket.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "What problem are you having, and what have you already tried?"
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "What problem are you having, and what have you already tried?"
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "thread_key": "demo-user-a/s09",
+      "status_profile": "normal",
+      "message": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+      "messages_in_state_before": 2,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "prepare_ticket",
+              "args": {
+                "problem": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+                "steps_tried": [
+                  "Enabled Wi-Fi",
+                  "Tried reconnecting"
+                ],
+                "category": "wifi",
+                "service_status": "not_checked",
+                "reference_ids": [
+                  "GUIDE-WIFI"
+                ]
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "prepare_ticket",
+              "result": {
+                "ok": true,
+                "ticket_id": "TCK-a29d51c7",
+                "file": "outputs/tickets/TCK-a29d51c7.json",
+                "ticket": {
+                  "ticket_id": "TCK-a29d51c7",
+                  "status": "draft",
+                  "user_id": "demo-user-a",
+                  "thread_id": "s09",
+                  "category": "wifi",
+                  "summary": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+                  "steps_tried": [
+                    "Enabled Wi-Fi",
+                    "Tried reconnecting"
+                  ],
+                  "service_status": "not_checked",
+                  "status_profile": "normal",
+                  "reference_ids": [
+                    "GUIDE-WIFI"
+                  ],
+                  "created_at": "2026-11-07T13:17:06+00:00",
+                  "note": "Local draft only. Not sent to any helpdesk."
+                }
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Service status was not checked. I prepared a local draft (TCK-a29d51c7, file outputs/tickets/TCK-a29d51c7.json) with the problem and the steps you tried. Nothing has been sent."
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "prepare_ticket",
+          "args": {
+            "problem": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+            "steps_tried": [
+              "Enabled Wi-Fi",
+              "Tried reconnecting"
+            ],
+            "category": "wifi",
+            "service_status": "not_checked",
+            "reference_ids": [
+              "GUIDE-WIFI"
+            ]
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "prepare_ticket",
+          "result": {
+            "ok": true,
+            "ticket_id": "TCK-a29d51c7",
+            "file": "outputs/tickets/TCK-a29d51c7.json",
+            "ticket": {
+              "ticket_id": "TCK-a29d51c7",
+              "status": "draft",
+              "user_id": "demo-user-a",
+              "thread_id": "s09",
+              "category": "wifi",
+              "summary": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+              "steps_tried": [
+                "Enabled Wi-Fi",
+                "Tried reconnecting"
+              ],
+              "service_status": "not_checked",
+              "status_profile": "normal",
+              "reference_ids": [
+                "GUIDE-WIFI"
+              ],
+              "created_at": "2026-11-07T13:17:06+00:00",
+              "note": "Local draft only. Not sent to any helpdesk."
+            }
+          }
+        }
+      ],
+      "information_sources": [
+        "conversation_state (checkpointer)"
+      ],
+      "ticket_files": [
+        "outputs/tickets/TCK-a29d51c7.json"
+      ],
+      "loop_limit_reached": false,
+      "reply": "Service status was not checked. I prepared a local draft (TCK-a29d51c7, file outputs/tickets/TCK-a29d51c7.json) with the problem and the steps you tried. Nothing has been sent."
+    }
+  ]
+}

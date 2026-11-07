@@ -1,0 +1,12 @@
+Scenario: S05 - Two topics after adding clarification
+Model: none (Part 1 graph, no LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S05
+Run at: 2026-11-07T13:21:42+00:00
+
+--- event 1: user=demo-user-a thread=s05
+User: My Wi-Fi password does not work.
+Graph: with_clarification
+  node read_request: update={"category": "both"}
+  node clarify_problem: update={"reply": "Is the problem connecting to Wi-Fi, or recovering your account password? Which one do you want to solve first?"}
+Reply: Is the problem connecting to Wi-Fi, or recovering your account password? Which one do you want to solve first?

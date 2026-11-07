@@ -1,0 +1,17 @@
+Scenario: S08 - Status source unavailable
+Model: fake model (offline test double, not a real LLM)
+Status snapshot: status_unavailable
+Command: python -m helpdesk scenarios --id S08 --fake-model
+Run at: 2026-11-07T13:17:04+00:00
+
+--- event 1: user=demo-user-a thread=s08
+User: Check whether Wi-Fi is down. If it is operating, prepare a ticket. I already enabled Wi-Fi and reconnected, with no success.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "unknown", "message": "The demo Wi-Fi status source is unavailable.", "profile": "status_unavailable", "source": "service_status.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "I could not determine the service status, so I cannot confirm it is operating. Would you like a ticket draft explaining that the status could not be checked?"}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: I could not determine the service status, so I cannot confirm it is operating. Would you like a ticket draft explaining that the status could not be checked?

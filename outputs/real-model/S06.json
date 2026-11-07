@@ -1,0 +1,285 @@
+{
+  "id": "S06",
+  "title": "Instructions then local ticket",
+  "model": "openai:gpt-4o-mini",
+  "command": "python -m helpdesk scenarios --id S06",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:21:54+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s06",
+      "thread_key": "demo-user-a/s06",
+      "status_profile": "normal",
+      "message": "Show me the Wi-Fi troubleshooting steps.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "find_instructions",
+              "args": {
+                "topic": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "find_instructions",
+              "result": {
+                "ok": true,
+                "topic": "wifi",
+                "instruction_id": "GUIDE-WIFI",
+                "title": "Connect to the practice campus network",
+                "steps": [
+                  "Check that Wi-Fi is enabled and airplane mode is off.",
+                  "Select the fictional Campus-Demo network.",
+                  "If connection fails, forget the saved network and try connecting again.",
+                  "If the problem remains, check the service status before preparing a ticket."
+                ],
+                "source": "helpdesk.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Here are the Wi-Fi troubleshooting steps:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If the connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket.\n\nIf you need further assistance, feel free to ask!"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "find_instructions",
+          "args": {
+            "topic": "wifi"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "find_instructions",
+          "result": {
+            "ok": true,
+            "topic": "wifi",
+            "instruction_id": "GUIDE-WIFI",
+            "title": "Connect to the practice campus network",
+            "steps": [
+              "Check that Wi-Fi is enabled and airplane mode is off.",
+              "Select the fictional Campus-Demo network.",
+              "If connection fails, forget the saved network and try connecting again.",
+              "If the problem remains, check the service status before preparing a ticket."
+            ],
+            "source": "helpdesk.json"
+          }
+        }
+      ],
+      "information_sources": [
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Here are the Wi-Fi troubleshooting steps:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If the connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket.\n\nIf you need further assistance, feel free to ask!"
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s06",
+      "thread_key": "demo-user-a/s06",
+      "status_profile": "normal",
+      "message": "I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect. Check whether Wi-Fi is down. If it is operating, prepare a ticket about this problem.",
+      "messages_in_state_before": 4,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "check_service_status",
+              "result": {
+                "ok": true,
+                "service": "wifi",
+                "status": "operational",
+                "message": "The demo Wi-Fi service has no reported outage.",
+                "profile": "normal",
+                "source": "service_status.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "prepare_ticket",
+              "args": {
+                "problem": "Campus-Demo Wi-Fi will not connect.",
+                "steps_tried": [
+                  "Enabled Wi-Fi",
+                  "Forgot the saved network"
+                ],
+                "category": "wifi",
+                "service_status": "operational",
+                "reference_ids": [
+                  "GUIDE-WIFI"
+                ]
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "prepare_ticket",
+              "result": {
+                "ok": true,
+                "ticket_id": "TCK-8e4a52b2",
+                "file": "outputs/tickets/TCK-8e4a52b2.json",
+                "ticket": {
+                  "ticket_id": "TCK-8e4a52b2",
+                  "status": "draft",
+                  "user_id": "demo-user-a",
+                  "thread_id": "s06",
+                  "category": "wifi",
+                  "summary": "Campus-Demo Wi-Fi will not connect.",
+                  "steps_tried": [
+                    "Enabled Wi-Fi",
+                    "Forgot the saved network"
+                  ],
+                  "service_status": "operational",
+                  "status_profile": "normal",
+                  "reference_ids": [
+                    "GUIDE-WIFI"
+                  ],
+                  "created_at": "2026-11-07T13:21:52+00:00",
+                  "note": "Local draft only. Not sent to any helpdesk."
+                }
+              }
+            }
+          ],
+          "tool_rounds": 2
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "I have prepared a local draft ticket regarding your issue with the Campus-Demo Wi-Fi not connecting. Here are the details:\n\n- **Problem:** Campus-Demo Wi-Fi will not connect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Forgot the saved network\n- **Service Status:** Operational\n\nPlease note that this ticket is only a local draft and has not been sent to any helpdesk. If you need further assistance or want to make any changes, let me know!"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "check_service_status",
+          "args": {
+            "service": "wifi"
+          }
+        },
+        {
+          "name": "prepare_ticket",
+          "args": {
+            "problem": "Campus-Demo Wi-Fi will not connect.",
+            "steps_tried": [
+              "Enabled Wi-Fi",
+              "Forgot the saved network"
+            ],
+            "category": "wifi",
+            "service_status": "operational",
+            "reference_ids": [
+              "GUIDE-WIFI"
+            ]
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "check_service_status",
+          "result": {
+            "ok": true,
+            "service": "wifi",
+            "status": "operational",
+            "message": "The demo Wi-Fi service has no reported outage.",
+            "profile": "normal",
+            "source": "service_status.json"
+          }
+        },
+        {
+          "name": "prepare_ticket",
+          "result": {
+            "ok": true,
+            "ticket_id": "TCK-8e4a52b2",
+            "file": "outputs/tickets/TCK-8e4a52b2.json",
+            "ticket": {
+              "ticket_id": "TCK-8e4a52b2",
+              "status": "draft",
+              "user_id": "demo-user-a",
+              "thread_id": "s06",
+              "category": "wifi",
+              "summary": "Campus-Demo Wi-Fi will not connect.",
+              "steps_tried": [
+                "Enabled Wi-Fi",
+                "Forgot the saved network"
+              ],
+              "service_status": "operational",
+              "status_profile": "normal",
+              "reference_ids": [
+                "GUIDE-WIFI"
+              ],
+              "created_at": "2026-11-07T13:21:52+00:00",
+              "note": "Local draft only. Not sent to any helpdesk."
+            }
+          }
+        }
+      ],
+      "information_sources": [
+        "conversation_state (checkpointer)",
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [
+        "outputs/tickets/TCK-8e4a52b2.json"
+      ],
+      "loop_limit_reached": false,
+      "reply": "I have prepared a local draft ticket regarding your issue with the Campus-Demo Wi-Fi not connecting. Here are the details:\n\n- **Problem:** Campus-Demo Wi-Fi will not connect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Forgot the saved network\n- **Service Status:** Operational\n\nPlease note that this ticket is only a local draft and has not been sent to any helpdesk. If you need further assistance or want to make any changes, let me know!"
+    }
+  ]
+}

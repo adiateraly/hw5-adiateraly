@@ -1,0 +1,19 @@
+{
+  "ticket_id": "TCK-8e4a52b2",
+  "status": "draft",
+  "user_id": "demo-user-a",
+  "thread_id": "s06",
+  "category": "wifi",
+  "summary": "Campus-Demo Wi-Fi will not connect.",
+  "steps_tried": [
+    "Enabled Wi-Fi",
+    "Forgot the saved network"
+  ],
+  "service_status": "operational",
+  "status_profile": "normal",
+  "reference_ids": [
+    "GUIDE-WIFI"
+  ],
+  "created_at": "2026-11-07T13:21:52+00:00",
+  "note": "Local draft only. Not sent to any helpdesk."
+}

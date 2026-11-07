@@ -1,0 +1,27 @@
+Scenario: S10 - Use the current conversation
+Model: fake model (offline test double, not a real LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S10 --fake-model
+Run at: 2026-11-07T13:17:07+00:00
+
+--- event 1: user=demo-user-a thread=s10
+User: I cannot connect to Wi-Fi. I enabled it and forgot the saved network, but reconnecting failed.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "find_instructions", "args": {"topic": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "find_instructions", "result": {"ok": true, "topic": "wifi", "instruction_id": "GUIDE-WIFI", "title": "Connect to the practice campus network", "steps": ["Check that Wi-Fi is enabled and airplane mode is off.", "Select the fictional Campus-Demo network.", "If connection fails, forget the saved network and try connecting again.", "If the problem remains, check the service status before preparing a ticket."], "source": "helpdesk.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "Connect to the practice campus network [GUIDE-WIFI]: Check that Wi-Fi is enabled and airplane mode is off. Select the fictional Campus-Demo network. If connection fails, forget the saved network and try connecting again. If the problem remains, check the service status before preparing a ticket."}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: Connect to the practice campus network [GUIDE-WIFI]: Check that Wi-Fi is enabled and airplane mode is off. Select the fictional Campus-Demo network. If connection fails, forget the saved network and try connecting again. If the problem remains, check the service status before preparing a ticket.
+
+--- event 2: user=demo-user-a thread=s10
+User: Which steps did I already try?
+State messages before this turn: 4
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [], "content": "You reported a Wi-Fi problem and said you already did this: enabled wi-fi and forgot the saved network and tried reconnecting."}
+Information sources: ['conversation_state (checkpointer)']
+Ticket files: none
+Loop limit reached: False
+Reply: You reported a Wi-Fi problem and said you already did this: enabled wi-fi and forgot the saved network and tried reconnecting.

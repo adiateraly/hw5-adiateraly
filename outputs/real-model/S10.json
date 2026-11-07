@@ -1,0 +1,182 @@
+{
+  "id": "S10",
+  "title": "Use the current conversation",
+  "model": "openai:gpt-4o-mini",
+  "command": "python -m helpdesk scenarios --id S10",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:22:22+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s10",
+      "thread_key": "demo-user-a/s10",
+      "status_profile": "normal",
+      "message": "I cannot connect to Wi-Fi. I enabled it and forgot the saved network, but reconnecting failed.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "check_service_status",
+              "result": {
+                "ok": true,
+                "service": "wifi",
+                "status": "operational",
+                "message": "The demo Wi-Fi service has no reported outage.",
+                "profile": "normal",
+                "source": "service_status.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "find_instructions",
+              "args": {
+                "topic": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "find_instructions",
+              "result": {
+                "ok": true,
+                "topic": "wifi",
+                "instruction_id": "GUIDE-WIFI",
+                "title": "Connect to the practice campus network",
+                "steps": [
+                  "Check that Wi-Fi is enabled and airplane mode is off.",
+                  "Select the fictional Campus-Demo network.",
+                  "If connection fails, forget the saved network and try connecting again.",
+                  "If the problem remains, check the service status before preparing a ticket."
+                ],
+                "source": "helpdesk.json"
+              }
+            }
+          ],
+          "tool_rounds": 2
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "The Wi-Fi service is operational, and here are the steps to connect to the campus network:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket.\n\nSince you've already enabled Wi-Fi and forgotten the saved network, what specific steps have you tried after that?"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "check_service_status",
+          "args": {
+            "service": "wifi"
+          }
+        },
+        {
+          "name": "find_instructions",
+          "args": {
+            "topic": "wifi"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "check_service_status",
+          "result": {
+            "ok": true,
+            "service": "wifi",
+            "status": "operational",
+            "message": "The demo Wi-Fi service has no reported outage.",
+            "profile": "normal",
+            "source": "service_status.json"
+          }
+        },
+        {
+          "name": "find_instructions",
+          "result": {
+            "ok": true,
+            "topic": "wifi",
+            "instruction_id": "GUIDE-WIFI",
+            "title": "Connect to the practice campus network",
+            "steps": [
+              "Check that Wi-Fi is enabled and airplane mode is off.",
+              "Select the fictional Campus-Demo network.",
+              "If connection fails, forget the saved network and try connecting again.",
+              "If the problem remains, check the service status before preparing a ticket."
+            ],
+            "source": "helpdesk.json"
+          }
+        }
+      ],
+      "information_sources": [
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "The Wi-Fi service is operational, and here are the steps to connect to the campus network:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket.\n\nSince you've already enabled Wi-Fi and forgotten the saved network, what specific steps have you tried after that?"
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s10",
+      "thread_key": "demo-user-a/s10",
+      "status_profile": "normal",
+      "message": "Which steps did I already try?",
+      "messages_in_state_before": 6,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "You mentioned that you enabled Wi-Fi and forgot the saved network, but reconnecting failed. Have you tried selecting the Campus-Demo network again after forgetting it? If so, please let me know if there are any additional steps you've taken."
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [
+        "conversation_state (checkpointer)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "You mentioned that you enabled Wi-Fi and forgot the saved network, but reconnecting failed. Have you tried selecting the Campus-Demo network again after forgetting it? If so, please let me know if there are any additional steps you've taken."
+    }
+  ]
+}

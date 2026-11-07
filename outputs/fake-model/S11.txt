@@ -1,0 +1,31 @@
+Scenario: S11 - Persist and recall after restart
+Model: fake model (offline test double, not a real LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S11 --fake-model
+Run at: 2026-11-07T13:17:11+00:00
+
+--- event 1: user=demo-user-a thread=restart-a
+User: Please remember that I prefer replies in Kazakh. My issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "remember_preference", "args": {"name": "reply_language", "value": "Kazakh"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "remember_preference", "result": {"ok": true, "saved": {"reply_language": "Kazakh"}, "target": "user_memory"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [{"name": "find_instructions", "args": {"topic": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "find_instructions", "result": {"ok": true, "topic": "wifi", "instruction_id": "GUIDE-WIFI", "title": "Connect to the practice campus network", "steps": ["Check that Wi-Fi is enabled and airplane mode is off.", "Select the fictional Campus-Demo network.", "If connection fails, forget the saved network and try connecting again.", "If the problem remains, check the service status before preparing a ticket."], "source": "helpdesk.json"}}], "tool_rounds": 2}
+  node call_model: {"tool_requests": [], "content": "Saved: replies in Kazakh."}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: Saved: replies in Kazakh.
+
+--- event 2: PROCESS RESTARTED (storage kept) ---
+
+--- event 3: user=demo-user-a thread=restart-a
+User: Which problem and steps did we discuss?
+State messages before this turn: 6
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {"reply_language": "Kazakh"}}
+  node call_model: {"tool_requests": [], "content": "You reported a Wi-Fi problem and said you already did this: enabled wi-fi and tried reconnecting."}
+Information sources: ['conversation_state (checkpointer)', 'user_memory']
+Ticket files: none
+Loop limit reached: False
+Reply: You reported a Wi-Fi problem and said you already did this: enabled wi-fi and tried reconnecting.

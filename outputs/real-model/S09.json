@@ -1,0 +1,217 @@
+{
+  "id": "S09",
+  "title": "Missing ticket details",
+  "model": "openai:gpt-4o-mini",
+  "command": "python -m helpdesk scenarios --id S09",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:22:15+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "thread_key": "demo-user-a/s09",
+      "status_profile": "normal",
+      "message": "Prepare a support ticket.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Could you please provide me with the problem you're experiencing and the steps you've already tried? This information is necessary to prepare the ticket draft."
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Could you please provide me with the problem you're experiencing and the steps you've already tried? This information is necessary to prepare the ticket draft."
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "thread_key": "demo-user-a/s09",
+      "status_profile": "normal",
+      "message": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+      "messages_in_state_before": 2,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "check_service_status",
+              "result": {
+                "ok": true,
+                "service": "wifi",
+                "status": "operational",
+                "message": "The demo Wi-Fi service has no reported outage.",
+                "profile": "normal",
+                "source": "service_status.json"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "prepare_ticket",
+              "args": {
+                "problem": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.",
+                "steps_tried": [
+                  "Enabled Wi-Fi",
+                  "Tried reconnecting"
+                ],
+                "category": "wifi",
+                "service_status": "operational"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "prepare_ticket",
+              "result": {
+                "ok": true,
+                "ticket_id": "TCK-83c2b3fb",
+                "file": "outputs/tickets/TCK-83c2b3fb.json",
+                "ticket": {
+                  "ticket_id": "TCK-83c2b3fb",
+                  "status": "draft",
+                  "user_id": "demo-user-a",
+                  "thread_id": "s09",
+                  "category": "wifi",
+                  "summary": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.",
+                  "steps_tried": [
+                    "Enabled Wi-Fi",
+                    "Tried reconnecting"
+                  ],
+                  "service_status": "operational",
+                  "status_profile": "normal",
+                  "reference_ids": [
+                    "GUIDE-WIFI"
+                  ],
+                  "created_at": "2026-11-07T13:22:11+00:00",
+                  "note": "Local draft only. Not sent to any helpdesk."
+                }
+              }
+            }
+          ],
+          "tool_rounds": 2
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "I have prepared a local draft for your support ticket regarding the Wi-Fi issue. Here are the details:\n\n- **Ticket ID:** TCK-83c2b3fb\n- **Summary:** Wi-Fi is failing to connect even after enabling it and trying to reconnect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Tried reconnecting\n- **Service Status:** Operational\n\nPlease note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or modifications, let me know!"
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "check_service_status",
+          "args": {
+            "service": "wifi"
+          }
+        },
+        {
+          "name": "prepare_ticket",
+          "args": {
+            "problem": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.",
+            "steps_tried": [
+              "Enabled Wi-Fi",
+              "Tried reconnecting"
+            ],
+            "category": "wifi",
+            "service_status": "operational"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "check_service_status",
+          "result": {
+            "ok": true,
+            "service": "wifi",
+            "status": "operational",
+            "message": "The demo Wi-Fi service has no reported outage.",
+            "profile": "normal",
+            "source": "service_status.json"
+          }
+        },
+        {
+          "name": "prepare_ticket",
+          "result": {
+            "ok": true,
+            "ticket_id": "TCK-83c2b3fb",
+            "file": "outputs/tickets/TCK-83c2b3fb.json",
+            "ticket": {
+              "ticket_id": "TCK-83c2b3fb",
+              "status": "draft",
+              "user_id": "demo-user-a",
+              "thread_id": "s09",
+              "category": "wifi",
+              "summary": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.",
+              "steps_tried": [
+                "Enabled Wi-Fi",
+                "Tried reconnecting"
+              ],
+              "service_status": "operational",
+              "status_profile": "normal",
+              "reference_ids": [
+                "GUIDE-WIFI"
+              ],
+              "created_at": "2026-11-07T13:22:11+00:00",
+              "note": "Local draft only. Not sent to any helpdesk."
+            }
+          }
+        }
+      ],
+      "information_sources": [
+        "conversation_state (checkpointer)",
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [
+        "outputs/tickets/TCK-83c2b3fb.json"
+      ],
+      "loop_limit_reached": false,
+      "reply": "I have prepared a local draft for your support ticket regarding the Wi-Fi issue. Here are the details:\n\n- **Ticket ID:** TCK-83c2b3fb\n- **Summary:** Wi-Fi is failing to connect even after enabling it and trying to reconnect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Tried reconnecting\n- **Service Status:** Operational\n\nPlease note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or modifications, let me know!"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "id": "S12",
+  "title": "Preference across threads without replay",
+  "model": "fake model (offline test double, not a real LLM)",
+  "command": "python -m helpdesk scenarios --id S12 --fake-model",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:17:14+00:00",
+  "events": [
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "preference-a1",
+      "thread_key": "demo-user-a/preference-a1",
+      "status_profile": "normal",
+      "message": "Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model",
+        "run_tools",
+        "call_model",
+        "run_tools",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {}
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "remember_preference",
+              "args": {
+                "name": "reply_language",
+                "value": "Kazakh"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "remember_preference",
+              "result": {
+                "ok": true,
+                "saved": {
+                  "reply_language": "Kazakh"
+                },
+                "target": "user_memory"
+              }
+            }
+          ],
+          "tool_rounds": 1
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [
+            {
+              "name": "find_instructions",
+              "args": {
+                "topic": "wifi"
+              }
+            }
+          ],
+          "content": ""
+        },
+        {
+          "node": "run_tools",
+          "tool_results": [
+            {
+              "name": "find_instructions",
+              "result": {
+                "ok": true,
+                "topic": "wifi",
+                "instruction_id": "GUIDE-WIFI",
+                "title": "Connect to the practice campus network",
+                "steps": [
+                  "Check that Wi-Fi is enabled and airplane mode is off.",
+                  "Select the fictional Campus-Demo network.",
+                  "If connection fails, forget the saved network and try connecting again.",
+                  "If the problem remains, check the service status before preparing a ticket."
+                ],
+                "source": "helpdesk.json"
+              }
+            }
+          ],
+          "tool_rounds": 2
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "Saved: replies in Kazakh."
+        }
+      ],
+      "tool_requests": [
+        {
+          "name": "remember_preference",
+          "args": {
+            "name": "reply_language",
+            "value": "Kazakh"
+          }
+        },
+        {
+          "name": "find_instructions",
+          "args": {
+            "topic": "wifi"
+          }
+        }
+      ],
+      "tool_results": [
+        {
+          "name": "remember_preference",
+          "result": {
+            "ok": true,
+            "saved": {
+              "reply_language": "Kazakh"
+            },
+            "target": "user_memory"
+          }
+        },
+        {
+          "name": "find_instructions",
+          "result": {
+            "ok": true,
+            "topic": "wifi",
+            "instruction_id": "GUIDE-WIFI",
+            "title": "Connect to the practice campus network",
+            "steps": [
+              "Check that Wi-Fi is enabled and airplane mode is off.",
+              "Select the fictional Campus-Demo network.",
+              "If connection fails, forget the saved network and try connecting again.",
+              "If the problem remains, check the service status before preparing a ticket."
+            ],
+            "source": "helpdesk.json"
+          }
+        }
+      ],
+      "information_sources": [
+        "reference_file (helpdesk.json / service_status.json)"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "Saved: replies in Kazakh."
+    },
+    {
+      "action": "restart_process"
+    },
+    {
+      "user_id": "demo-user-a",
+      "thread_id": "preference-a2",
+      "thread_key": "demo-user-a/preference-a2",
+      "status_profile": "normal",
+      "message": "Which language did I ask you to use? What can you help with?",
+      "messages_in_state_before": 0,
+      "nodes_visited": [
+        "load_user_memory",
+        "call_model"
+      ],
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "read_from": "user_memory",
+          "user_memory": {
+            "reply_language": "Kazakh"
+          }
+        },
+        {
+          "node": "call_model",
+          "tool_requests": [],
+          "content": "You asked me to reply in Kazakh. I can help with Wi-Fi troubleshooting, password recovery guidance, service status, and local ticket drafts."
+        }
+      ],
+      "tool_requests": [],
+      "tool_results": [],
+      "information_sources": [
+        "user_memory"
+      ],
+      "ticket_files": [],
+      "loop_limit_reached": false,
+      "reply": "You asked me to reply in Kazakh. I can help with Wi-Fi troubleshooting, password recovery guidance, service status, and local ticket drafts."
+    }
+  ]
+}

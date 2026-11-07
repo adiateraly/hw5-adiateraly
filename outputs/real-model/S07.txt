@@ -1,0 +1,17 @@
+Scenario: S07 - The same request during a Wi-Fi outage
+Model: openai:gpt-4o-mini
+Status snapshot: wifi_outage
+Command: python -m helpdesk scenarios --id S07
+Run at: 2026-11-07T13:22:00+00:00
+
+--- event 1: user=demo-user-a thread=s07
+User: I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect. Check whether Wi-Fi is down. If it is operating, prepare a ticket about this problem.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "outage", "message": "The demo Wi-Fi service is unavailable across campus. The fixture gives no repair time.", "profile": "wifi_outage", "source": "service_status.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "The Wi-Fi service is currently experiencing an outage across campus, so I cannot prepare a ticket for your issue at this time. If you need assistance with anything else or would like to discuss this further, please let me know!"}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: The Wi-Fi service is currently experiencing an outage across campus, so I cannot prepare a ticket for your issue at this time. If you need assistance with anything else or would like to discuss this further, please let me know!

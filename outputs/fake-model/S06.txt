@@ -1,0 +1,31 @@
+Scenario: S06 - Instructions then local ticket
+Model: fake model (offline test double, not a real LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S06 --fake-model
+Run at: 2026-11-07T13:17:00+00:00
+
+--- event 1: user=demo-user-a thread=s06
+User: Show me the Wi-Fi troubleshooting steps.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "find_instructions", "args": {"topic": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "find_instructions", "result": {"ok": true, "topic": "wifi", "instruction_id": "GUIDE-WIFI", "title": "Connect to the practice campus network", "steps": ["Check that Wi-Fi is enabled and airplane mode is off.", "Select the fictional Campus-Demo network.", "If connection fails, forget the saved network and try connecting again.", "If the problem remains, check the service status before preparing a ticket."], "source": "helpdesk.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "Connect to the practice campus network [GUIDE-WIFI]: Check that Wi-Fi is enabled and airplane mode is off. Select the fictional Campus-Demo network. If connection fails, forget the saved network and try connecting again. If the problem remains, check the service status before preparing a ticket."}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: Connect to the practice campus network [GUIDE-WIFI]: Check that Wi-Fi is enabled and airplane mode is off. Select the fictional Campus-Demo network. If connection fails, forget the saved network and try connecting again. If the problem remains, check the service status before preparing a ticket.
+
+--- event 2: user=demo-user-a thread=s06
+User: I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect. Check whether Wi-Fi is down. If it is operating, prepare a ticket about this problem.
+State messages before this turn: 4
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "operational", "message": "The demo Wi-Fi service has no reported outage.", "profile": "normal", "source": "service_status.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect.", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "category": "wifi", "service_status": "operational", "reference_ids": ["GUIDE-WIFI"]}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-c2847c72", "file": "outputs/tickets/TCK-c2847c72.json", "ticket": {"ticket_id": "TCK-c2847c72", "status": "draft", "user_id": "demo-user-a", "thread_id": "s06", "category": "wifi", "summary": "I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect.", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "service_status": "operational", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:17:00+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 2}
+  node call_model: {"tool_requests": [], "content": "The demo status source reports the service is operational. I prepared a local draft (TCK-c2847c72, file outputs/tickets/TCK-c2847c72.json) with the problem and the steps you tried. Nothing has been sent."}
+Information sources: ['conversation_state (checkpointer)', 'reference_file (helpdesk.json / service_status.json)']
+Ticket files: ['outputs/tickets/TCK-c2847c72.json']
+Loop limit reached: False
+Reply: The demo status source reports the service is operational. I prepared a local draft (TCK-c2847c72, file outputs/tickets/TCK-c2847c72.json) with the problem and the steps you tried. Nothing has been sent.

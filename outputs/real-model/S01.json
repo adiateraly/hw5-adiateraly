@@ -1,0 +1,41 @@
+{
+  "id": "S01",
+  "title": "Simple Wi-Fi route",
+  "model": "none (Part 1 graph, no LLM)",
+  "command": "python -m helpdesk scenarios --id S01",
+  "status_profile": "normal",
+  "run_at": "2026-11-07T13:21:42+00:00",
+  "events": [
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "s01",
+      "message": "I cannot connect to Wi-Fi.",
+      "graph": "original",
+      "trace": [
+        {
+          "node": "read_request",
+          "update": {
+            "category": "wifi"
+          },
+          "state_after": {
+            "message": "I cannot connect to Wi-Fi.",
+            "category": "wifi"
+          }
+        },
+        {
+          "node": "wifi_help",
+          "update": {
+            "reply": "Connect to the practice campus network [GUIDE-WIFI]\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket."
+          },
+          "state_after": {
+            "message": "I cannot connect to Wi-Fi.",
+            "category": "wifi",
+            "reply": "Connect to the practice campus network [GUIDE-WIFI]\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket."
+          }
+        }
+      ],
+      "reply": "Connect to the practice campus network [GUIDE-WIFI]\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket."
+    }
+  ]
+}

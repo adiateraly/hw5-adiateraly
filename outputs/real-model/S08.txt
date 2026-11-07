@@ -1,0 +1,17 @@
+Scenario: S08 - Status source unavailable
+Model: openai:gpt-4o-mini
+Status snapshot: status_unavailable
+Command: python -m helpdesk scenarios --id S08
+Run at: 2026-11-07T13:22:05+00:00
+
+--- event 1: user=demo-user-a thread=s08
+User: Check whether Wi-Fi is down. If it is operating, prepare a ticket. I already enabled Wi-Fi and reconnected, with no success.
+State messages before this turn: 0
+  node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
+  node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "unknown", "message": "The demo Wi-Fi status source is unavailable.", "profile": "status_unavailable", "source": "service_status.json"}}], "tool_rounds": 1}
+  node call_model: {"tool_requests": [], "content": "I couldn't determine the Wi-Fi service status, as it is marked as unknown. Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing."}
+Information sources: ['reference_file (helpdesk.json / service_status.json)']
+Ticket files: none
+Loop limit reached: False
+Reply: I couldn't determine the Wi-Fi service status, as it is marked as unknown. Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing.

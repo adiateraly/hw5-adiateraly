@@ -1,0 +1,16 @@
+Scenario: S02 - Case-insensitive password route
+Model: none (Part 1 graph, no LLM)
+Status snapshot: normal
+Command: python -m helpdesk scenarios --id S02 --fake-model
+Run at: 2026-11-07T13:16:59+00:00
+
+--- event 1: user=demo-user-a thread=s02
+User: I forgot my PASSWORD.
+Graph: original
+  node read_request: update={"category": "password"}
+  node password_help: update={"reply": "Recover access to the practice account [GUIDE-PASSWORD]\n1. Open the practice sign-in screen and choose Forgot password.\n2. Follow the recovery instructions shown by the practice application.\n3. If recovery is unavailable, prepare a ticket describing the error.\n4. Never include a password or recovery code in a ticket."}
+Reply: Recover access to the practice account [GUIDE-PASSWORD]
+1. Open the practice sign-in screen and choose Forgot password.
+2. Follow the recovery instructions shown by the practice application.
+3. If recovery is unavailable, prepare a ticket describing the error.
+4. Never include a password or recovery code in a ticket.
