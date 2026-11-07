@@ -2,7 +2,7 @@ Scenario: S09 - Missing ticket details
 Model: openai:gpt-4o-mini
 Status snapshot: normal
 Command: python -m helpdesk scenarios --id S09
-Run at: 2026-11-07T13:22:15+00:00
+Run at: 2026-11-07T13:25:21+00:00
 
 --- event 1: user=demo-user-a thread=s09
 User: Prepare a support ticket.
@@ -20,19 +20,19 @@ State messages before this turn: 2
   node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
   node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
   node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "operational", "message": "The demo Wi-Fi service has no reported outage.", "profile": "normal", "source": "service_status.json"}}], "tool_rounds": 1}
-  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "category": "wifi", "service_status": "operational"}}], "content": ""}
-  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-83c2b3fb", "file": "outputs/tickets/TCK-83c2b3fb.json", "ticket": {"ticket_id": "TCK-83c2b3fb", "status": "draft", "user_id": "demo-user-a", "thread_id": "s09", "category": "wifi", "summary": "Wi-Fi is failing to connect even after enabling it and trying to reconnect.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "service_status": "operational", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:22:11+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 2}
-  node call_model: {"tool_requests": [], "content": "I have prepared a local draft for your support ticket regarding the Wi-Fi issue. Here are the details:\n\n- **Ticket ID:** TCK-83c2b3fb\n- **Summary:** Wi-Fi is failing to connect even after enabling it and trying to reconnect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Tried reconnecting\n- **Service Status:** Operational\n\nPlease note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or modifications, let me know!"}
+  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "Wi-Fi is failing to connect after enabling it.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "category": "wifi", "service_status": "operational"}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-040c14dc", "file": "outputs/tickets/TCK-040c14dc.json", "ticket": {"ticket_id": "TCK-040c14dc", "status": "draft", "user_id": "demo-user-a", "thread_id": "s09", "category": "wifi", "summary": "Wi-Fi is failing to connect after enabling it.", "steps_tried": ["Enabled Wi-Fi", "Tried reconnecting"], "service_status": "operational", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:25:19+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 2}
+  node call_model: {"tool_requests": [], "content": "I have prepared a local draft for your support ticket regarding the Wi-Fi issue. Here are the details:\n\n- **Ticket ID:** TCK-040c14dc\n- **Summary:** Wi-Fi is failing to connect after enabling it.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Tried reconnecting\n- **Service Status:** Operational\n\nPlease note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or want to make changes, let me know!"}
 Information sources: ['conversation_state (checkpointer)', 'reference_file (helpdesk.json / service_status.json)']
-Ticket files: ['outputs/tickets/TCK-83c2b3fb.json']
+Ticket files: ['outputs/tickets/TCK-040c14dc.json']
 Loop limit reached: False
 Reply: I have prepared a local draft for your support ticket regarding the Wi-Fi issue. Here are the details:
 
-- **Ticket ID:** TCK-83c2b3fb
-- **Summary:** Wi-Fi is failing to connect even after enabling it and trying to reconnect.
+- **Ticket ID:** TCK-040c14dc
+- **Summary:** Wi-Fi is failing to connect after enabling it.
 - **Steps Tried:**
   - Enabled Wi-Fi
   - Tried reconnecting
 - **Service Status:** Operational
 
-Please note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or modifications, let me know!
+Please note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or want to make changes, let me know!

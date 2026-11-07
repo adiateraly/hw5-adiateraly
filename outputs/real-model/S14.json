@@ -4,7 +4,7 @@
   "model": "openai:gpt-4o-mini",
   "command": "python -m helpdesk scenarios --id S14",
   "status_profile": "recovery_outage",
-  "run_at": "2026-11-07T13:22:54+00:00",
+  "run_at": "2026-11-07T13:26:01+00:00",
   "events": [
     {
       "user_id": "demo-user-a",
@@ -57,7 +57,7 @@
         {
           "node": "call_model",
           "tool_requests": [],
-          "content": "The password recovery service is currently experiencing an outage and is unavailable. Unfortunately, there is no information on a repair time at the moment. \n\nIf you need assistance with anything else or would like to prepare a local draft ticket regarding this issue, please let me know!"
+          "content": "The password recovery service is currently experiencing an outage and is unavailable. Unfortunately, there is no information on when it will be repaired. \n\nIf you would like, I can prepare a local draft ticket regarding this issue. Would you like me to do that?"
         }
       ],
       "tool_requests": [
@@ -86,7 +86,7 @@
       ],
       "ticket_files": [],
       "loop_limit_reached": false,
-      "reply": "The password recovery service is currently experiencing an outage and is unavailable. Unfortunately, there is no information on a repair time at the moment. \n\nIf you need assistance with anything else or would like to prepare a local draft ticket regarding this issue, please let me know!"
+      "reply": "The password recovery service is currently experiencing an outage and is unavailable. Unfortunately, there is no information on when it will be repaired. \n\nIf you would like, I can prepare a local draft ticket regarding this issue. Would you like me to do that?"
     }
   ]
 }

@@ -2,7 +2,7 @@ Scenario: S07 - The same request during a Wi-Fi outage
 Model: openai:gpt-4o-mini
 Status snapshot: wifi_outage
 Command: python -m helpdesk scenarios --id S07
-Run at: 2026-11-07T13:22:00+00:00
+Run at: 2026-11-07T13:25:08+00:00
 
 --- event 1: user=demo-user-a thread=s07
 User: I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect. Check whether Wi-Fi is down. If it is operating, prepare a ticket about this problem.

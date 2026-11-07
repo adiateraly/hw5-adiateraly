@@ -2,7 +2,7 @@ Scenario: S06 - Instructions then local ticket
 Model: openai:gpt-4o-mini
 Status snapshot: normal
 Command: python -m helpdesk scenarios --id S06
-Run at: 2026-11-07T13:21:54+00:00
+Run at: 2026-11-07T13:25:03+00:00
 
 --- event 1: user=demo-user-a thread=s06
 User: Show me the Wi-Fi troubleshooting steps.
@@ -10,7 +10,7 @@ State messages before this turn: 0
   node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
   node call_model: {"tool_requests": [{"name": "find_instructions", "args": {"topic": "wifi"}}], "content": ""}
   node run_tools: {"tool_results": [{"name": "find_instructions", "result": {"ok": true, "topic": "wifi", "instruction_id": "GUIDE-WIFI", "title": "Connect to the practice campus network", "steps": ["Check that Wi-Fi is enabled and airplane mode is off.", "Select the fictional Campus-Demo network.", "If connection fails, forget the saved network and try connecting again.", "If the problem remains, check the service status before preparing a ticket."], "source": "helpdesk.json"}}], "tool_rounds": 1}
-  node call_model: {"tool_requests": [], "content": "Here are the Wi-Fi troubleshooting steps:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If the connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket.\n\nIf you need further assistance, feel free to ask!"}
+  node call_model: {"tool_requests": [], "content": "Here are the Wi-Fi troubleshooting steps:\n\n1. Check that Wi-Fi is enabled and airplane mode is off.\n2. Select the fictional Campus-Demo network.\n3. If the connection fails, forget the saved network and try connecting again.\n4. If the problem remains, check the service status before preparing a ticket. \n\nIf you need further assistance, feel free to ask!"}
 Information sources: ['reference_file (helpdesk.json / service_status.json)']
 Ticket files: none
 Loop limit reached: False
@@ -19,7 +19,7 @@ Reply: Here are the Wi-Fi troubleshooting steps:
 1. Check that Wi-Fi is enabled and airplane mode is off.
 2. Select the fictional Campus-Demo network.
 3. If the connection fails, forget the saved network and try connecting again.
-4. If the problem remains, check the service status before preparing a ticket.
+4. If the problem remains, check the service status before preparing a ticket. 
 
 If you need further assistance, feel free to ask!
 
@@ -29,18 +29,19 @@ State messages before this turn: 4
   node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
   node call_model: {"tool_requests": [{"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
   node run_tools: {"tool_results": [{"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "operational", "message": "The demo Wi-Fi service has no reported outage.", "profile": "normal", "source": "service_status.json"}}], "tool_rounds": 1}
-  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "Campus-Demo Wi-Fi will not connect.", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "category": "wifi", "service_status": "operational", "reference_ids": ["GUIDE-WIFI"]}}], "content": ""}
-  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-8e4a52b2", "file": "outputs/tickets/TCK-8e4a52b2.json", "ticket": {"ticket_id": "TCK-8e4a52b2", "status": "draft", "user_id": "demo-user-a", "thread_id": "s06", "category": "wifi", "summary": "Campus-Demo Wi-Fi will not connect.", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "service_status": "operational", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:21:52+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 2}
-  node call_model: {"tool_requests": [], "content": "I have prepared a local draft ticket regarding your issue with the Campus-Demo Wi-Fi not connecting. Here are the details:\n\n- **Problem:** Campus-Demo Wi-Fi will not connect.\n- **Steps Tried:**\n  - Enabled Wi-Fi\n  - Forgot the saved network\n- **Service Status:** Operational\n\nPlease note that this ticket is only a local draft and has not been sent to any helpdesk. If you need further assistance or want to make any changes, let me know!"}
+  node call_model: {"tool_requests": [{"name": "prepare_ticket", "args": {"problem": "Campus-Demo Wi-Fi will not connect", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "category": "wifi", "service_status": "operational", "reference_ids": ["GUIDE-WIFI"]}}], "content": ""}
+  node run_tools: {"tool_results": [{"name": "prepare_ticket", "result": {"ok": true, "ticket_id": "TCK-270f390b", "file": "outputs/tickets/TCK-270f390b.json", "ticket": {"ticket_id": "TCK-270f390b", "status": "draft", "user_id": "demo-user-a", "thread_id": "s06", "category": "wifi", "summary": "Campus-Demo Wi-Fi will not connect", "steps_tried": ["Enabled Wi-Fi", "Forgot the saved network"], "service_status": "operational", "status_profile": "normal", "reference_ids": ["GUIDE-WIFI"], "created_at": "2026-11-07T13:25:01+00:00", "note": "Local draft only. Not sent to any helpdesk."}}}], "tool_rounds": 2}
+  node call_model: {"tool_requests": [], "content": "I have prepared a local draft ticket regarding the issue with the Campus-Demo Wi-Fi not connecting. Here are the details:\n\n- **Ticket ID:** TCK-270f390b\n- **Problem:** Campus-Demo Wi-Fi will not connect\n- **Steps Tried:** \n  - Enabled Wi-Fi\n  - Forgot the saved network\n- **Service Status:** Operational\n\nPlease note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or want to make changes, let me know!"}
 Information sources: ['conversation_state (checkpointer)', 'reference_file (helpdesk.json / service_status.json)']
-Ticket files: ['outputs/tickets/TCK-8e4a52b2.json']
+Ticket files: ['outputs/tickets/TCK-270f390b.json']
 Loop limit reached: False
-Reply: I have prepared a local draft ticket regarding your issue with the Campus-Demo Wi-Fi not connecting. Here are the details:
+Reply: I have prepared a local draft ticket regarding the issue with the Campus-Demo Wi-Fi not connecting. Here are the details:
 
-- **Problem:** Campus-Demo Wi-Fi will not connect.
-- **Steps Tried:**
+- **Ticket ID:** TCK-270f390b
+- **Problem:** Campus-Demo Wi-Fi will not connect
+- **Steps Tried:** 
   - Enabled Wi-Fi
   - Forgot the saved network
 - **Service Status:** Operational
 
-Please note that this ticket is only a local draft and has not been sent to any helpdesk. If you need further assistance or want to make any changes, let me know!
+Please note that this is only a local draft and has not been sent to any helpdesk. If you need any further assistance or want to make changes, let me know!

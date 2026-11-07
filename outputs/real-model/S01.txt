@@ -2,7 +2,7 @@ Scenario: S01 - Simple Wi-Fi route
 Model: none (Part 1 graph, no LLM)
 Status snapshot: normal
 Command: python -m helpdesk scenarios --id S01
-Run at: 2026-11-07T13:21:42+00:00
+Run at: 2026-11-07T13:24:53+00:00
 
 --- event 1: user=demo-user-a thread=s01
 User: I cannot connect to Wi-Fi.

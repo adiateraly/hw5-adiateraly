@@ -2,7 +2,7 @@ Scenario: S11 - Persist and recall after restart
 Model: openai:gpt-4o-mini
 Status snapshot: normal
 Command: python -m helpdesk scenarios --id S11
-Run at: 2026-11-07T13:22:32+00:00
+Run at: 2026-11-07T13:25:40+00:00
 
 --- event 1: user=demo-user-a thread=restart-a
 User: Please remember that I prefer replies in Kazakh. My issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.
@@ -10,13 +10,13 @@ State messages before this turn: 0
   node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
   node call_model: {"tool_requests": [{"name": "remember_preference", "args": {"name": "reply_language", "value": "Kazakh"}}, {"name": "check_service_status", "args": {"service": "wifi"}}], "content": ""}
   node run_tools: {"tool_results": [{"name": "remember_preference", "result": {"ok": true, "saved": {"reply_language": "Kazakh"}, "target": "user_memory"}}, {"name": "check_service_status", "result": {"ok": true, "service": "wifi", "status": "operational", "message": "The demo Wi-Fi service has no reported outage.", "profile": "normal", "source": "service_status.json"}}], "tool_rounds": 1}
-  node call_model: {"tool_requests": [], "content": "Сіздің жауаптарыңызды қазақ тілінде беруді еске алдым. Wi-Fi қызметі жұмыс істеп тұр, сондықтан мен сізге көмек көрсету үшін билет жобасын дайындай аламын.\n\nСізде қандай мәселе бар және не істеп көрдіңіз?"}
+  node call_model: {"tool_requests": [], "content": "Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. \n\nWi-Fi қызметі жұмыс істеп тұр, бірақ сіздің қосылу мәселеңізді шешу үшін мен сізден қосымша ақпарат қажет. Сізде қандай проблема бар және не істеп көрдіңіз?"}
 Information sources: ['reference_file (helpdesk.json / service_status.json)']
 Ticket files: none
 Loop limit reached: False
-Reply: Сіздің жауаптарыңызды қазақ тілінде беруді еске алдым. Wi-Fi қызметі жұмыс істеп тұр, сондықтан мен сізге көмек көрсету үшін билет жобасын дайындай аламын.
+Reply: Мен сіздің жауаптарыңызды қазақ тілінде беруді есте сақтадым. 
 
-Сізде қандай мәселе бар және не істеп көрдіңіз?
+Wi-Fi қызметі жұмыс істеп тұр, бірақ сіздің қосылу мәселеңізді шешу үшін мен сізден қосымша ақпарат қажет. Сізде қандай проблема бар және не істеп көрдіңіз?
 
 --- event 2: PROCESS RESTARTED (storage kept) ---
 
@@ -24,8 +24,10 @@ Reply: Сіздің жауаптарыңызды қазақ тілінде бе�
 User: Which problem and steps did we discuss?
 State messages before this turn: 5
   node load_user_memory: {"read_from": "user_memory", "user_memory": {"reply_language": "Kazakh"}}
-  node call_model: {"tool_requests": [], "content": "Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. Енді мен билет жобасын дайындау үшін сіздің айтқандарыңызды растаймын: мәселе қандай және не істеп көрдіңіз?"}
+  node call_model: {"tool_requests": [], "content": "Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. \n\nЕнді мен сізден қосымша ақпарат сұрауым керек: сізде нақты қандай проблема бар және не істеп көрдіңіз?"}
 Information sources: ['conversation_state (checkpointer)', 'user_memory']
 Ticket files: none
 Loop limit reached: False
-Reply: Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. Енді мен билет жобасын дайындау үшін сіздің айтқандарыңызды растаймын: мәселе қандай және не істеп көрдіңіз?
+Reply: Біз Wi-Fi мәселесі туралы сөйлестік. Сіз Wi-Fi-ды қосып, қайта қосылуға тырыстыңыз, бірақ ол әлі де жұмыс істемейді. 
+
+Енді мен сізден қосымша ақпарат сұрауым керек: сізде нақты қандай проблема бар және не істеп көрдіңіз?

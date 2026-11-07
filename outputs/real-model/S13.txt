@@ -2,7 +2,7 @@ Scenario: S13 - Do not share memory between users
 Model: openai:gpt-4o-mini
 Status snapshot: normal
 Command: python -m helpdesk scenarios --id S13
-Run at: 2026-11-07T13:22:49+00:00
+Run at: 2026-11-07T13:25:55+00:00
 
 --- event 1: user=demo-user-a thread=isolation-a
 User: Please remember that I prefer replies in Kazakh. I have a Wi-Fi problem.
@@ -20,8 +20,8 @@ Reply: Мен сіздің жауаптарыңызды қазақ тілінд�
 User: Have I told you a preferred language or a previous problem?
 State messages before this turn: 0
   node load_user_memory: {"read_from": "user_memory", "user_memory": {}}
-  node call_model: {"tool_requests": [], "content": "No, you haven't shared a preferred language or a previous problem with me yet. If you have a specific issue or language preference, please let me know!"}
+  node call_model: {"tool_requests": [], "content": "You haven't shared a preferred language or any previous problem with me yet. If you have a specific issue or language preference, feel free to let me know!"}
 Information sources: none
 Ticket files: none
 Loop limit reached: False
-Reply: No, you haven't shared a preferred language or a previous problem with me yet. If you have a specific issue or language preference, please let me know!
+Reply: You haven't shared a preferred language or any previous problem with me yet. If you have a specific issue or language preference, feel free to let me know!

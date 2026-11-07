@@ -4,7 +4,7 @@
   "model": "openai:gpt-4o-mini",
   "command": "python -m helpdesk scenarios --id S07",
   "status_profile": "wifi_outage",
-  "run_at": "2026-11-07T13:22:00+00:00",
+  "run_at": "2026-11-07T13:25:08+00:00",
   "events": [
     {
       "user_id": "demo-user-a",

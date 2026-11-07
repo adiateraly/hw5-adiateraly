@@ -4,7 +4,7 @@
   "model": "openai:gpt-4o-mini",
   "command": "python -m helpdesk scenarios --id S08",
   "status_profile": "status_unavailable",
-  "run_at": "2026-11-07T13:22:05+00:00",
+  "run_at": "2026-11-07T13:25:13+00:00",
   "events": [
     {
       "user_id": "demo-user-a",
@@ -57,7 +57,7 @@
         {
           "node": "call_model",
           "tool_requests": [],
-          "content": "I couldn't determine the Wi-Fi service status, as it is marked as unknown. Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing."
+          "content": "I couldn't determine the Wi-Fi service status, as it is marked as \"unknown.\" Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing."
         }
       ],
       "tool_requests": [
@@ -86,7 +86,7 @@
       ],
       "ticket_files": [],
       "loop_limit_reached": false,
-      "reply": "I couldn't determine the Wi-Fi service status, as it is marked as unknown. Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing."
+      "reply": "I couldn't determine the Wi-Fi service status, as it is marked as \"unknown.\" Would you like me to prepare a local draft ticket for your issue? If so, please confirm the problem you're experiencing."
     }
   ]
 }
