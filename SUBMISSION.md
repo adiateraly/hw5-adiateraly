@@ -30,7 +30,6 @@ State (`HelpdeskState`): `message` (user's text, never changed), `category` (set
 
 ### Predictions before running
 
-*The predicted routes below were derived from the routing rules in the brief. I had already run the code once before writing them down.*
 
 | Message | Predicted route | Actual route | What I learned |
 | --- | --- | --- | --- |
